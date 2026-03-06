@@ -272,7 +272,7 @@ Date : <span id="billDate"></span>
 <td><input type="number" id="current"></td>
 
 <td class="center" id="usage">0</td>
-<td class="center" id="waterAmt">₹ 0</td>
+<td class="center" id="waterAmt">0</td>
 
 </tr>
 
@@ -290,7 +290,7 @@ Date : <span id="billDate"></span>
 
 <tr>
 <td class="label total">Total Payable</td>
-<td class="center total" id="total">₹ 0</td>
+<td class="center total" id="total">0</td>
 </tr>
 
 </table>
@@ -416,9 +416,9 @@ let total=water+arrears+maintenance+rent;
 
 document.getElementById("usage").innerText=usage;
 
-document.getElementById("waterAmt").innerText="₹ "+water.toFixed(2);
+document.getElementById("waterAmt").innerText=""+water.toFixed(2);
 
-document.getElementById("total").innerText="₹ "+total.toFixed(2);
+document.getElementById("total").innerText=""+total.toFixed(2);
 
 }
 
