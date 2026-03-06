@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>SRS Enclave Water Bill</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+/* NOTES SECTION */
+
+.notes{
+margin-top:18px;
+padding:10px 12px;
+border:1px solid #333;
+background:#f4f6ff;
+font-size:14px;
+line-height:1.5;
+border-radius:3px;
+}
+
+.notes b{
+color:#1f4e8c;
+font-size:15px;
+}
+
+.notes ul{
+margin:6px 0 0 18px;
+padding:0;
+}
+
+.notes li{
+margin-bottom:3px;
+}
+
+body{
+font-family:Arial;
+background:#e9eef5;
+}
+
+/* BILL */
+
+#bill{
+width:190mm;   /* keep inside A4 */
+margin:auto;
+background:white;
+padding:10mm;
+border:2px solid #333;
+position:relative;
+box-sizing:border-box;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:4px solid #1f4e8c;
+padding-bottom:10px;
+margin-bottom:15px;
+}
+
+.address{
+text-align:left;
+font-size:26px;
+font-weight:bold;
+color:#1f4e8c;
+}
+
+.phone{
+font-size:15px;
+color:#333;
+}
+
+/* WATERMARK */
+
+.watermark{
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%) rotate(-35deg);
+
+font-size:180px;
+color:rgba(0,0,0,0.05);
+font-weight:bold;
+letter-spacing:60px;
+
+pointer-events:none;
+user-select:none;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:12px;
+}
+
+th,td{
+border:1px solid #333;
+padding:10px;
+font-size:15px;
+}
+
+th{
+background:#1f4e8c;
+color:white;
+}
+
+.label{
+background:#eef3ff;
+font-weight:bold;
+}
+
+.center{
+text-align:center;
+}
+
+.total{
+font-size:18px;
+font-weight:bold;
+color:#d00000;
+}
+
+/* INPUT */
+
+input{
+width:100%;
+border:none;
+outline:none;
+background:transparent;
+font-size:16px;
+text-align:center;
+}
+
+/* show underline only when typing */
+
+input:focus{
+border-bottom:1px solid #333;
+}
+/* REMOVE NUMBER ARROWS */
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button{
+-webkit-appearance:none;
+margin:0;
+}
+
+input[type=number]{
+-moz-appearance:textfield;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:40px;
+display:flex;
+justify-content:space-between;
+}
+
+.signature{
+margin-top:50px;
+}
+
+/* BUTTONS */
+
+.controls{
+text-align:center;
+margin-top:20px;
+}
+
+button{
+padding:10px 18px;
+font-size:15px;
+border:none;
+background:#1f4e8c;
+color:white;
+cursor:pointer;
+border-radius:4px;
+margin:5px;
+}
+
+button:hover{
+background:#163a68;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="bill">
+
+<div class="watermark">SRS</div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<!-- 
+<div>
+
+<svg width="90" height="70">
+<text x="5" y="35" font-size="32" fill="black">SRS</text>
+<text x="20" y="55" font-size="14" fill="red">Enclave</text>
+</svg>
+
+</div>
+
+-->
+
+<div class="address">
+SRS ENCLAVE
+<div class="phone">JR Layout | Ph: 8050408993</div>
+</div>
+
+<div>
+Bill No : <span id="billNo"></span><br>
+Date : <span id="billDate"></span>
+</div>
+
+</div>
+
+
+<!-- CUSTOMER DETAILS -->
+
+<table>
+
+<tr>
+<td class="label">House No</td>
+<td><input type="text" id="house"></td>
+
+<td class="label">Name</td>
+<td><input type="text" id="name"></td>
+</tr>
+
+<tr>
+<td class="label">Arrears</td>
+<td><input type="number" id="arrears" value="0"></td>
+
+<td class="label">Maintenance</td>
+<td><input type="number" id="maintenance" value="0"></td>
+</tr>
+
+</table>
+
+
+<!-- WATER BILL -->
+
+<table>
+
+<tr>
+<th colspan="4">Water Bill</th>
+</tr>
+
+<tr>
+<th>Previous Reading</th>
+<th>Current Reading</th>
+<th>Total Usage</th>
+<th>Amount</th>
+</tr>
+
+<tr>
+
+<td><input type="number" id="prev"></td>
+<td><input type="number" id="current"></td>
+
+<td class="center" id="usage">0</td>
+<td class="center" id="waterAmt">₹ 0</td>
+
+</tr>
+
+</table>
+
+
+<!-- RENT -->
+
+<table>
+
+<tr>
+<td class="label">Rent Amount</td>
+<td><input type="number" id="rent" value="0"></td>
+</tr>
+
+<tr>
+<td class="label total">Total Payable</td>
+<td class="center total" id="total">₹ 0</td>
+</tr>
+
+</table>
+
+<!-- NOTES -->
+
+<div class="notes">
+
+<b>Important Notes:</b>
+
+<ul>
+<li>Please pay the bill before the due date to avoid penalty.</li>
+<li>Late payment may attract additional charges.</li>
+<li>Water usage charges are calculated based on meter reading.</li>
+<li>Maintenance and arrears must be cleared along with the current bill.</li>
+<li>For any discrepancies, contact the owner.</li>
+
+</ul>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+<div class="signature" style="text-align:center; margin-top:50px;">
+
+<br>
+
+<div style="font-size:13px; color:#555; letter-spacing:0.5px;">
+Resident Signature
+</div>
+
+</div>
+
+<div class="signature" style="text-align:center; margin-top:50px;">
+
+<div style="font-weight:bold; font-size:16px; color:#1f4e8c; margin-bottom:3px;">
+Madhu Kumar HS
+</div>
+
+<div style="font-size:13px; color:#555; letter-spacing:0.5px;">
+Authorized Signatory
+</div>
+
+</div>
+
+</div>
+
+
+<div class="controls">
+
+<button onclick="downloadPDF()">Download PDF</button>
+<!-- <button onclick="window.print()">Print</button> -->
+
+</div>
+
+
+<script>
+
+/* AUTO BILL NUMBER */
+
+/*
+document.getElementById("billNo").innerText =
+Math.floor(Math.random()*9000)+1000;
+
+*/
+
+/* AUTO BILL NUMBER START FROM 1 */
+
+let billNumber = localStorage.getItem("srsBillNo");
+
+if(!billNumber){
+billNumber = 1;
+}else{
+billNumber = parseInt(billNumber) + 1;
+}
+
+localStorage.setItem("srsBillNo", billNumber);
+
+document.getElementById("billNo").innerText = billNumber;
+
+
+/* AUTO DATE */
+
+const today=new Date();
+
+let dd=today.getDate();
+let mm=today.getMonth()+1;
+let yyyy=today.getFullYear();
+
+if(dd<10) dd='0'+dd;
+if(mm<10) mm='0'+mm;
+
+document.getElementById("billDate").innerText =
+dd+"-"+mm+"-"+yyyy;
+
+
+/* AUTO CALCULATION */
+
+document.querySelectorAll("input").forEach(el=>{
+el.addEventListener("input",calculate);
+});
+
+function calculate(){
+
+let prev=parseFloat(document.getElementById("prev").value)||0;
+let current=parseFloat(document.getElementById("current").value)||0;
+
+let arrears=parseFloat(document.getElementById("arrears").value)||0;
+let maintenance=parseFloat(document.getElementById("maintenance").value)||0;
+let rent=parseFloat(document.getElementById("rent").value)||0;
+
+let usage=current-prev;
+if(usage<0) usage=0;
+
+let rate=1;
+
+let water=usage*rate;
+
+let total=water+arrears+maintenance+rent;
+
+document.getElementById("usage").innerText=usage;
+
+document.getElementById("waterAmt").innerText="₹ "+water.toFixed(2);
+
+document.getElementById("total").innerText="₹ "+total.toFixed(2);
+
+}
+
+
+/* PDF */
+
+function downloadPDF(){
+
+let controls = document.querySelector(".controls");
+controls.style.display = "none";
+
+const element = document.getElementById("bill");
+
+const opt = {
+margin: [10,10,10,10],   // top, left, bottom, right margins in mm
+
+filename:'SRS_Water_Bill.pdf',
+
+image:{ type:'jpeg', quality:1 },
+
+html2canvas:{
+scale:3,
+scrollY:0
+},
+
+jsPDF:{
+unit:'mm',
+format:'a4',
+orientation:'portrait'
+}
+
+};
+
+html2pdf().set(opt).from(element).save().then(function(){
+
+controls.style.display="block";
+
+});
+
+}
+</script>
+
+</body>
+</html>
