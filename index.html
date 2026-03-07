@@ -45,7 +45,7 @@ background:#e9eef5;
 
 #bill{
 width:100%;
-max-width:170mm;   /* keeps A4 size for PDF */
+max-width:170mm;
 margin:auto;
 background:white;
 padding:15px;
@@ -83,14 +83,11 @@ color:#333;
 position:absolute;
 top:50%;
 left:50%;
-
 transform:translate(-50%,-50%) rotate(-35deg);
-
 font-size:180px;
 color:rgba(0,0,0,0.05);
 font-weight:bold;
 letter-spacing:60px;
-
 pointer-events:none;
 user-select:none;
 }
@@ -99,12 +96,13 @@ user-select:none;
 
 table{
 width:100%;
-border-collapse:collapse;
+border-collapse:separate;
+border-spacing:0;
 margin-top:12px;
 }
 
 th,td{
-border:1px solid #333;
+border:1px solid #333 !important;
 padding:10px;
 font-size:15px;
 }
@@ -145,6 +143,7 @@ text-align:center;
 input:focus{
 border-bottom:1px solid #333;
 }
+
 /* REMOVE NUMBER ARROWS */
 
 input::-webkit-inner-spin-button,
@@ -191,7 +190,6 @@ button:hover{
 background:#163a68;
 }
 
-
 /* MOBILE RESPONSIVE */
 
 @media screen and (max-width:600px){
@@ -200,7 +198,6 @@ background:#163a68;
 padding:10px;
 border:1px solid #333;
 }
-
 
 .phone{
 font-size:13px;
@@ -234,14 +231,12 @@ color:#333;
 
 }
 
-
 #billNoDiv{
-text-align:right;
+text-align:left;
 font-size:10px;
 line-height:1;
 min-width:140px;
 }
-
 
 .billInfo{
 border:none;
@@ -250,7 +245,7 @@ margin-left:auto;
 }
 
 .billInfo td{
-border:none;
+border:none !important;
 padding:2px 5px;
 font-size:10px;
 }
@@ -269,21 +264,7 @@ text-align:right;
 
 <div class="watermark">SRS</div>
 
-<!-- HEADER -->
-
 <div class="header">
-
-<!-- 
-<div>
-
-<svg width="90" height="70">
-<text x="5" y="35" font-size="32" fill="black">SRS</text>
-<text x="20" y="55" font-size="14" fill="red">Enclave</text>
-</svg>
-
-</div>
-
--->
 
 <div class="address">
 SRS ENCLAVE
@@ -307,7 +288,6 @@ SRS ENCLAVE
 
 </div>
 
-
 <!-- CUSTOMER DETAILS -->
 
 <table>
@@ -330,7 +310,6 @@ SRS ENCLAVE
 
 </table>
 
-
 <!-- WATER BILL -->
 
 <table>
@@ -340,10 +319,10 @@ SRS ENCLAVE
 </tr>
 
 <tr>
-<th style=" font-size: 10px; ">Previous Reading</th>
-<th style=" font-size: 10px; ">Current Reading</th>
-<th style=" font-size: 10px; ">Usage</th>
-<th style=" font-size: 10px; ">Amount</th>
+<th style="font-size:10px;">Previous Reading</th>
+<th style="font-size:10px;">Current Reading</th>
+<th style="font-size:10px;">Usage</th>
+<th style="font-size:10px;">Amount</th>
 </tr>
 
 <tr>
@@ -357,7 +336,6 @@ SRS ENCLAVE
 </tr>
 
 </table>
-
 
 <!-- RENT -->
 
@@ -392,7 +370,6 @@ SRS ENCLAVE
 
 </div>
 
-
 <!-- FOOTER -->
 
 <div class="footer">
@@ -421,26 +398,15 @@ Authorized Signatory
 
 </div>
 
-
 <div class="controls">
 
 <button onclick="downloadPDF()">Download PDF</button>
-<!-- <button onclick="window.print()">Print</button> -->
 
 </div>
-
 
 <script>
 
 /* AUTO BILL NUMBER */
-
-/*
-document.getElementById("billNo").innerText =
-Math.floor(Math.random()*9000)+1000;
-
-*/
-
-/* AUTO BILL NUMBER START FROM 1 */
 
 let billNumber = localStorage.getItem("srsBillNo");
 
@@ -453,7 +419,6 @@ billNumber = parseInt(billNumber) + 1;
 localStorage.setItem("srsBillNo", billNumber);
 
 document.getElementById("billNo").innerText = billNumber;
-
 
 /* AUTO DATE */
 
@@ -468,7 +433,6 @@ if(mm<10) mm='0'+mm;
 
 document.getElementById("billDate").innerText =
 dd+"-"+mm+"-"+yyyy;
-
 
 /* AUTO CALCULATION */
 
@@ -496,12 +460,11 @@ let total=water+arrears+maintenance+rent;
 
 document.getElementById("usage").innerText=usage;
 
-document.getElementById("waterAmt").innerText=""+water.toFixed(2);
+document.getElementById("waterAmt").innerText=water.toFixed(2);
 
-document.getElementById("total").innerText=""+total.toFixed(2);
+document.getElementById("total").innerText=total.toFixed(2);
 
 }
-
 
 /* PDF */
 
@@ -512,31 +475,43 @@ controls.style.display = "none";
 
 const element = document.getElementById("bill");
 
-const opt = {
-margin: [12,12,12,12],   // slightly bigger margin
-filename:'SRS_Water_Bill.pdf',
+/* accurate size */
+const rect = element.getBoundingClientRect();
 
-image:{ type:'jpeg', quality:1 },
+/* add small buffer so borders don't get cut */
+const width = rect.width + 20;
+const height = rect.height + 10;
+
+const opt = {
+
+margin:0,
+
+filename:'SRS_Water_Bill_'+document.getElementById("billNo").innerText+'.pdf',
+
+image:{ type:'jpeg', quality:0.98 },
 
 html2canvas:{
-scale:2,
-scrollY:0
+scale:3,
+useCORS:true,
+scrollY:0,
+width:width,
+height:height
 },
 
 jsPDF:{
-unit:'mm',
-format:'a4',
+unit:'px',
+format:[width,height],
 orientation:'portrait'
 }
+
 };
 
 html2pdf().set(opt).from(element).save().then(function(){
-
 controls.style.display="block";
-
 });
 
 }
+
 </script>
 
 </body>
