@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SRS Enclave Water Bill</title>
 
@@ -43,10 +44,11 @@ background:#e9eef5;
 /* BILL */
 
 #bill{
-width:170mm;   /* earlier 190 / 180 */
+width:100%;
+max-width:170mm;   /* keeps A4 size for PDF */
 margin:auto;
 background:white;
-padding:10mm;
+padding:15px;
 border:2px solid #333;
 position:relative;
 box-sizing:border-box;
@@ -189,6 +191,74 @@ button:hover{
 background:#163a68;
 }
 
+
+/* MOBILE RESPONSIVE */
+
+@media screen and (max-width:600px){
+
+#bill{
+padding:10px;
+border:1px solid #333;
+}
+
+
+.phone{
+font-size:13px;
+}
+
+th,td{
+font-size:13px;
+padding:6px;
+}
+
+input{
+font-size:14px;
+}
+
+.watermark{
+font-size:90px;
+letter-spacing:20px;
+}
+
+.address{
+text-align:left;
+font-size:10px;
+font-weight:bold;
+color:#1f4e8c;
+}
+
+.phone{
+font-size:10px;
+color:#333;
+}
+
+}
+
+
+#billNoDiv{
+text-align:right;
+font-size:10px;
+line-height:1;
+min-width:140px;
+}
+
+
+.billInfo{
+border:none;
+width:auto;
+margin-left:auto;
+}
+
+.billInfo td{
+border:none;
+padding:2px 5px;
+font-size:10px;
+}
+
+.billInfo td:nth-child(1){
+text-align:right;
+}
+
 </style>
 
 </head>
@@ -220,9 +290,19 @@ SRS ENCLAVE
 <div class="phone">JR Layout | Ph: 8050408993</div>
 </div>
 
-<div>
-Bill No : <span id="billNo"></span><br>
-Date : <span id="billDate"></span>
+<div id="billNoDiv">
+<table class="billInfo">
+<tr>
+<td><b>Bill No</b></td>
+<td>:</td>
+<td><span id="billNo"></span></td>
+</tr>
+<tr>
+<td><b>Date</b></td>
+<td>:</td>
+<td><span id="billDate"></span></td>
+</tr>
+</table>
 </div>
 
 </div>
@@ -256,14 +336,14 @@ Date : <span id="billDate"></span>
 <table>
 
 <tr>
-<th colspan="4">Water Bill</th>
+<th colspan="4" style="background-color:#6cadc8;">Water Bill</th>
 </tr>
 
 <tr>
-<th>Previous Reading</th>
-<th>Current Reading</th>
-<th>Total Usage</th>
-<th>Amount</th>
+<th style=" font-size: 10px; ">Previous Reading</th>
+<th style=" font-size: 10px; ">Current Reading</th>
+<th style=" font-size: 10px; ">Usage</th>
+<th style=" font-size: 10px; ">Amount</th>
 </tr>
 
 <tr>
