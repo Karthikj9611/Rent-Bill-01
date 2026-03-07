@@ -492,10 +492,8 @@ controls.style.display = "none";
 
 const element = document.getElementById("bill");
 
-/* accurate size */
 const rect = element.getBoundingClientRect();
 
-/* add small buffer so borders don't get cut */
 const width = rect.width + 20;
 const height = rect.height + 10;
 
@@ -506,6 +504,8 @@ margin:0,
 filename:'SRS_Water_Bill_'+document.getElementById("billNo").innerText+'.pdf',
 
 image:{ type:'jpeg', quality:0.98 },
+
+pagebreak:{ mode: [] },
 
 html2canvas:{
 scale:3,
