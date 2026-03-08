@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SRS Enclave Water Bill</title>
+    <title>SSR Enclave Water Bill</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
@@ -354,12 +354,12 @@
 
     <div id="bill">
 
-        <div class="watermark">SRS</div>
+        <div class="watermark">SSR</div>
 
         <div class="header">
 
             <div class="address">
-                SRS ENCLAVE
+                SSR ENCLAVE
                 <div class="phone">JR Layout | Ph: 8050408993</div>
             </div>
 
@@ -515,7 +515,7 @@
         <script>
             /* AUTO BILL NUMBER */
             
-            let billNumber = localStorage.getItem("srsBillNo");
+            let billNumber = localStorage.getItem("ssrBillNo");
             
             if(!billNumber){
             billNumber = 1;
@@ -523,7 +523,7 @@
             billNumber = parseInt(billNumber) + 1;
             }
             
-            localStorage.setItem("srsBillNo", billNumber);
+            localStorage.setItem("ssrBillNo", billNumber);
             
             document.getElementById("billNo").innerText = billNumber;
             
@@ -590,7 +590,7 @@
             
             margin:0,
             
-            filename:'SRS_Water_Bill_'+document.getElementById("billNo").innerText+'.pdf',
+            filename:'SSR_Water_Bill_'+document.getElementById("billNo").innerText+'.pdf',
             
             image:{ type:'jpeg', quality:1 },
             
