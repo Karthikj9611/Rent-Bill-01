@@ -446,14 +446,14 @@ font-size:10px;
 <table>
 
 <tr>
-<td class="label">Rent Amount</td>
+<td class="label" style="font-size:10px;width: 25%;">Rent Amount</td>
 <td>
 <input type="number" id="rent">
 </td>
 </tr>
 
 <tr>
-<td class="label total">Total Payable</td>
+<td class="label total"style="font-size:10px;width: 25%;">Total Payable</td>
 <td class="center total" id="total">0</td>
 </tr>
 
@@ -583,12 +583,12 @@ controls.style.display = "none";
 const element = document.getElementById("bill");
 
 /* get exact content size */
-const width = element.scrollWidth + 10;
-const height = element.scrollHeight + 10;
+const width = element.scrollWidth + 30;
+const height = element.scrollHeight + 30;
 
 const opt = {
 
-margin:0,
+margin:5,
 
             filename:'SSR_Water_Bill_'+document.getElementById("billNo").innerText+'.pdf',
 
