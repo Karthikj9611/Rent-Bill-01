@@ -530,7 +530,7 @@ billNumber = parseInt(billNumber) + 1;
 
             localStorage.setItem("ssrBillNo", billNumber);
 
-document.getElementById("billNo").innerText = billNumber;
+document.getElementById("billNo").innerText = String(billNumber).padStart(3,'0');
 
 /* AUTO DATE */
 
