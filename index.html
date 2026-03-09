@@ -432,28 +432,28 @@ color:#722323;;
 <tr>
 <td class="label"style="width: 25%;">House No</td>
 <td>
-<input type="text" id="house">
+<input type="text" style="text-align:left;" id="house">
 </td>
 </tr>
 
 <tr>
 <td class="label">Building Name</td>
 <td>
-<input type="text" id="name">
+<input type="text" style="text-align:left;" id="name">
 </td>
 </tr>
 
 <tr>
 <td class="label">Arrears</td>
 <td>
-<input type="number" id="arrears">
+<input type="number" style="text-align:left;" id="arrears">
 </td>
 </tr>
 
 <tr>
 <td class="label">Maintenance</td>
 <td>
-<input type="number" id="maintenance">
+<input type="number" style="text-align:left;" id="maintenance">
 </td>
 </tr>
 
@@ -504,6 +504,11 @@ color:#722323;;
 <tr>
 <td class="label total"style="font-size:10px;width: 25%;">Total Payable</td>
 <td class="center total" id="total">0</td>
+</tr>
+
+<tr>
+<td class="label" style="font-size:10px;color:#d00000">Amount in Words</td>
+<td id="totalWords" style="font-size:10px;font-style:italic;text-align:center;color:#d00000;font-weight:bold;"></td>
 </tr>
 
 </table>
@@ -679,6 +684,77 @@ controls.style.display="block";
 });
 
 }
+
+
+calculate();
+
+function calculate(){
+
+let prev = parseFloat(document.getElementById("prev").value) || 0;
+let current = parseFloat(document.getElementById("current").value) || 0;
+
+let arrears = parseFloat(document.getElementById("arrears").value) || 0;
+let maintenance = parseFloat(document.getElementById("maintenance").value) || 0;
+let rent = parseFloat(document.getElementById("rent").value) || 0;
+
+let usage = current - prev;
+if(usage < 0) usage = 0;
+
+let rate = 1;
+
+let water = usage * rate;
+
+let total = water + arrears + maintenance + rent;
+
+document.getElementById("usage").innerText = usage;
+document.getElementById("waterAmt").innerText = water.toFixed(2);
+document.getElementById("total").innerText = total.toFixed(2);
+
+document.getElementById("totalWords").innerText =
+numberToWords(Math.round(total)) + " Rupees Only";
+
+}
+
+
+function numberToWords(num){
+
+if(num === 0) return "Zero";
+
+const ones = [
+"", "One","Two","Three","Four","Five","Six","Seven","Eight","Nine",
+"Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen",
+"Sixteen","Seventeen","Eighteen","Nineteen"
+];
+
+const tens = [
+"", "", "Twenty","Thirty","Forty","Fifty",
+"Sixty","Seventy","Eighty","Ninety"
+];
+
+function convert(n){
+
+if(n < 20) return ones[n];
+
+if(n < 100)
+return tens[Math.floor(n/10)] + (n%10 ? " " + ones[n%10] : "");
+
+if(n < 1000)
+return ones[Math.floor(n/100)] + " Hundred " + (n%100 ? " " + convert(n%100) : "");
+
+if(n < 100000)
+return convert(Math.floor(n/1000)) + " Thousand " + (n%1000 ? " " + convert(n%1000) : "");
+
+if(n < 10000000)
+return convert(Math.floor(n/100000)) + " Lakh " + (n%100000 ? " " + convert(n%100000) : "");
+
+return convert(Math.floor(n/10000000)) + " Crore " + (n%10000000 ? " " + convert(n%10000000) : "");
+
+}
+
+return convert(num);
+}
+
+
 </script>
 
 </body>
