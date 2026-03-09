@@ -367,30 +367,37 @@ color:#722323;;
 
         <div class="watermark">SSR</div>
 
-<div class="header">
+<div class="header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #000; padding-bottom:8px; margin-bottom:10px; font-family:Arial;">
 
-<div class="address">
-                SSR ENCLAVE
-<div class="phone" style="font-size:10px; font-family:Arial; margin-top:5px;">
-    JR Layout | Ph: 
-    <a href="tel:8050408993" 
-       style="color:#007bff; font-weight:bold; text-decoration:underline;">
-       8050408993
-    </a>
-</div>
+<!-- LEFT SIDE -->
+<div class="address" style="text-align:left;">
+    <div style="font-size:18px; font-weight:bold;">SSR ENCLAVE</div>
+    
+    <div style="font-size:10px; margin-top:3px;">
+        JR Layout
+    </div>
+
+   Contact : 
+<a href="tel:+918050408993" 
+style="color:#007bff; font-size:10px; text-decoration:underline;">
++91 8050408993
+</a>
 </div>
 
-<div id="billNoDiv">
-<table class="billInfo">
+
+<!-- RIGHT SIDE -->
+<div id="billNoDiv" style="text-align:right;">
+<table class="billInfo" style="font-size:12px; border-collapse:collapse;">
 <tr>
-<td><b>Bill No</b></td>
-<td>:</td>
-<td><span id="billNo"></span></td>
+<td style="padding:2px 5px;"><b>Bill No</b></td>
+<td style="padding:2px 5px;">:</td>
+<td style="padding:2px 5px;"><span id="billNo"></span></td>
 </tr>
+
 <tr>
-<td><b>Date</b></td>
-<td>:</td>
-<td><span id="billDate"></span></td>
+<td style="padding:2px 5px;"><b>Date</b></td>
+<td style="padding:2px 5px;">:</td>
+<td style="padding:2px 5px;"><span id="billDate"></span></td>
 </tr>
 </table>
 </div>
@@ -657,7 +664,7 @@ const opt = {
 
 margin:5,
 
-            filename:'SSR_Water_Bill_'+document.getElementById("billNo").innerText+'.pdf',
+            filename:'SSR_Rent_Bill_'+document.getElementById("billNo").innerText+'.pdf',
 
 image:{ type:'jpeg', quality:1 },
 enableLinks:true,
