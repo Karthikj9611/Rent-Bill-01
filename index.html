@@ -391,15 +391,20 @@ style="color:#007bff; text-decoration:underline;">
 <div id="billNoDiv" style="text-align:right;">
 <table class="billInfo" style="font-size:10px; border-collapse:collapse;">
 <tr>
-<td style="padding:2px 0px;"><b>Bill No</b></td>
-<td style="padding:2px 0px;">:</td>
-<td style="padding:2px 0px;"><span id="billNo"></span></td>
+  <!-- Right-align label, narrow width -->
+  <td style="padding:2px 2px; text-align:right; width:50px;"><b>Bill No</b></td>
+
+  <!-- Small padding for colon -->
+  <td style="padding:2px 2px;">:</td>
+
+  <!-- Left-align value, no extra space -->
+  <td style="padding:2px 2px; text-align:left;"><span id="billNo"></span></td>
 </tr>
 
 <tr>
-<td style="padding:2px 0px;"><b>Date</b></td>
-<td style="padding:2px 0px;">:</td>
-<td style="padding:2px 0px;"><span id="billDate"></span></td>
+  <td style="padding:2px 2px; text-align:right; width:50px;"><b>Date</b></td>
+  <td style="padding:2px 2px;">:</td>
+  <td style="padding:2px 2px; text-align:left;"><span id="billDate"></span></td>
 </tr>
 </table>
 </div>
