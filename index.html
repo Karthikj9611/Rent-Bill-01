@@ -93,18 +93,17 @@ color:#333;
 
 /* WATERMARK */
 
-.watermark{
-position:absolute;
-top:30%;
-left:50%;
-transform:translate(-50%,-50%) rotate(-35deg);
-font-size:180px;
-color:rgba(0,0,0,0.05);
-font-weight:bold;
-letter-spacing:60px;
-pointer-events:none;
-user-select:none;
-color:rgba(31,78,140,0.05);
+.watermark {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-35deg);
+    font-size: 180px;
+    font-weight: bold;
+    letter-spacing: 60px;
+    pointer-events: none;
+    user-select: none;
+    color: rgba(255, 0, 0, 0.05); /* red with low opacity */
 }
 
 /* TABLE */
@@ -793,10 +792,10 @@ function allowOnlyNumbers(input){
 input.value = input.value.replace(/[^0-9.]/g,'');
 }
 
-
 document.addEventListener("contextmenu", function(e){
 e.preventDefault();
 });
+
 
 
 </script>
