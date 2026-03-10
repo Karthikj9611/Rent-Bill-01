@@ -715,7 +715,7 @@ let rent = parseFloat(document.getElementById("rent").value) || 0;
 let usage = current - prev;
 if(usage < 0) usage = 0;
 
-let rate = 1;
+let rate = 0.15;
 
 let water = usage * rate;
 
@@ -775,3 +775,4 @@ return convert(num);
 </body>
 
 </html>
+
