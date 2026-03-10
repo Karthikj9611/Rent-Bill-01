@@ -628,31 +628,7 @@ document.querySelectorAll("input").forEach(el=>{
 el.addEventListener("input",calculate);
 });
 
-function calculate(){
 
-let prev=parseFloat(document.getElementById("prev").value)||0;
-let current=parseFloat(document.getElementById("current").value)||0;
-
-let arrears=parseFloat(document.getElementById("arrears").value)||0;
-let maintenance=parseFloat(document.getElementById("maintenance").value)||0;
-let rent=parseFloat(document.getElementById("rent").value)||0;
-
-let usage=current-prev;
-if(usage<0) usage=0;
-
-let rate=1;
-
-let water=usage*rate;
-
-let total=water+arrears+maintenance+rent;
-
-document.getElementById("usage").innerText=usage;
-
-document.getElementById("waterAmt").innerText=water.toFixed(2);
-
-document.getElementById("total").innerText=total.toFixed(2);
-
-}
 
 /* PDF */
 
@@ -717,7 +693,7 @@ if(usage < 0) usage = 0;
 
 let rate = 0.15;
 
-let water = usage * rate;
+let water = usage * 10 * rate;
 
 let total = water + arrears + maintenance + rent;
 
