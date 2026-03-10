@@ -103,6 +103,13 @@ color:#333;
     letter-spacing: 60px;
     pointer-events: none;
     user-select: none;
+}
+
+.watermark .black {
+    color: rgba(0, 0, 0, 0.05); /* black with low opacity */
+}
+
+.watermark .red {
     color: rgba(255, 0, 0, 0.05); /* red with low opacity */
 }
 
@@ -387,7 +394,9 @@ color:#722323;;
 
 <div id="bill">
 
-        <div class="watermark">SSR</div>
+        <div class="watermark">
+  <span class="black">SS</span><span class="red">R</span>
+</div>
 
 <div class="header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #000; padding-bottom:8px; margin-bottom:10px; font-family:Arial;">
 
