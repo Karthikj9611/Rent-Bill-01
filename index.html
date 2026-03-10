@@ -461,14 +461,14 @@ style="color:#007bff; text-decoration:underline;">
 <tr>
 <td class="label">Arrears</td>
 <td>
-<input type="number" style="text-align:left;" id="arrears">
+<input type="number" style="text-align:left;" id="arrears" oninput="allowOnlyNumbers(this)">
 </td>
 </tr>
 
 <tr>
 <td class="label">Maintenance</td>
 <td>
-<input type="number" style="text-align:left;" id="maintenance">
+<input type="number" style="text-align:left;" id="maintenance" oninput="allowOnlyNumbers(this)">
 </td>
 </tr>
 
@@ -492,10 +492,10 @@ style="color:#007bff; text-decoration:underline;">
 <tr>
 
 <td>
-<input type="number" id="prev">
+<input type="number" id="prev" oninput="allowOnlyNumbers(this)">
 </td>
 <td>
-<input type="number" id="current">
+<input type="number" id="current" oninput="allowOnlyNumbers(this)">
 </td>
 
 <td class="center" style="font-size: 10px;" id="usage"></td>
@@ -512,7 +512,7 @@ style="color:#007bff; text-decoration:underline;">
 <tr>
 <td class="label" style="font-size:10px;width: 25%;">Rent Amount</td>
 <td>
-<input type="number" id="rent">
+<input type="number" id="rent" oninput="allowOnlyNumbers(this)">
 </td>
 </tr>
 
@@ -758,6 +758,14 @@ words += " and " + convert(paisa) + " Paisa";
 return words + " Only";
 
 }
+
+function allowOnlyNumbers(input){
+input.value = input.value.replace(/[^0-9.]/g,'');
+}
+
+document.addEventListener("contextmenu", function(e){
+e.preventDefault();
+});
 
 
 </script>
