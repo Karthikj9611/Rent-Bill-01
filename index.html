@@ -10,38 +10,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* NOTES SECTION */
 
-.notes{
-margin-top:18px;
-padding:10px 12px;
-border:1px solid #333;
-background:#f4f6ff;
-font-size:14px;
-line-height:1.5;
-border-radius:3px;
+/* =========================
+   ROOT VARIABLES
+========================= */
+
+:root{
+--main:#1f4e8c;
+--light:#eef3ff;
+--border:#cfd6e4;
+--text:#333;
 }
 
-.notes b{
-color:#1f4e8c;
-font-size:15px;
-}
-
-.notes ul{
-margin:6px 0 0 18px;
-padding:0;
-}
-
-.notes li{
-margin-bottom:3px;
-}
+/* =========================
+   BODY
+========================= */
 
 body{
 font-family:Arial, sans-serif;
-background:#f4f7fc;
+font-size:10px;
+background:#e9eef5;
 }
 
-/* BILL */
+/* =========================
+   BILL CONTAINER
+========================= */
 
 #bill{
 width:100%;
@@ -53,9 +46,12 @@ border:1px solid var(--border);
 box-shadow:0 2px 8px rgba(0,0,0,0.08);
 box-sizing:border-box;
 position:relative;
+padding-bottom:30px;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .header{
 display:flex;
@@ -66,47 +62,46 @@ background:var(--main);
 color:white;
 border-radius:4px;
 margin-bottom:15px;
+border-bottom:2px solid #000;
 }
 
 .address{
-text-align:left;
-font-size:26px;
+font-size:12px;
 font-weight:bold;
-
-
-color:#ffffff;
-font-weight:bold;
+color:#eef3ff;
 }
 
 .phone{
-font-size:15px;
+font-size:10px;
 color:#333;
 }
 
-/* WATERMARK */
-
-.watermark{
-position:absolute;
-top:40%;
-left:50%;
-transform:translate(-50%,-50%) rotate(-30deg);
-font-size:160px;
-font-weight:bold;
-letter-spacing:50px;
-color:rgba(0,0,0,0.03);
-pointer-events:none;
-user-select:none;
+#billNoDiv{
+text-align:left;
+font-size:10px;
+line-height:1.2;
+min-width:70px;
 }
 
-.watermark .black {
-    color: rgba(0, 0, 0, 0.05); /* black with low opacity */
+/* =========================
+   BILL INFO TABLE
+========================= */
+
+.billInfo{
+border:none;
+margin-left:auto;
+font-size:11px;
 }
 
-.watermark .red {
-    color: rgba(255, 0, 0, 0.05); /* red with low opacity */
+.billInfo td{
+border:none !important;
+padding:2px 5px;
+font-size:10px;
 }
 
-/* TABLE */
+/* =========================
+   TABLE STYLES
+========================= */
 
 table{
 width:100%;
@@ -115,9 +110,9 @@ margin-top:10px;
 }
 
 th{
+font-size:12px;
 background:var(--main);
-color:white;
-font-size:11px;
+color:#fff;
 padding:8px;
 border:1px solid var(--border);
 }
@@ -129,9 +124,14 @@ font-size:11px;
 color:var(--text);
 }
 
+/* =========================
+   LABELS
+========================= */
+
 .label{
-background:var(--light);
+font-size:12px;
 font-weight:bold;
+background:var(--light);
 color:var(--main);
 }
 
@@ -139,31 +139,33 @@ color:var(--main);
 text-align:center;
 }
 
+/* =========================
+   TOTAL
+========================= */
+
 .total{
-font-size:13px;
+font-size:12px;
 font-weight:bold;
-color:#c62828;
+color:#d00000;
 background:#fff3f3;
 }
 
-/* INPUT */
+/* =========================
+   INPUTS
+========================= */
 
 input{
 width:100%;
 border:none;
 outline:none;
 background:transparent;
-font-size:16px;
+font-size:10px;
 text-align:center;
 }
-
-/* show underline only when typing */
 
 input:focus{
 border-bottom:1px solid #333;
 }
-
-/* REMOVE NUMBER ARROWS */
 
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button{
@@ -175,7 +177,60 @@ input[type=number]{
 -moz-appearance:textfield;
 }
 
-/* FOOTER */
+/* =========================
+   WATERMARK
+========================= */
+
+.watermark{
+position:absolute;
+top:40%;
+left:50%;
+transform:translate(-50%,-50%) rotate(-30deg);
+font-size:160px;
+font-weight:bold;
+letter-spacing:50px;
+pointer-events:none;
+user-select:none;
+}
+
+.watermark .black{
+color:rgba(0,0,0,0.05);
+}
+
+.watermark .red{
+color:rgba(255,0,0,0.05);
+}
+
+/* =========================
+   NOTES
+========================= */
+
+.notes{
+margin-top:15px;
+padding:10px;
+border:1px solid var(--border);
+background:#fafcff;
+font-size:11px;
+line-height:1.4;
+border-radius:3px;
+}
+
+.notes b{
+font-size:12px;
+}
+
+.notes ul{
+margin:6px 0 0 18px;
+padding:0;
+}
+
+.notes li{
+margin-bottom:3px;
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
 margin-top:35px;
@@ -186,9 +241,32 @@ font-size:11px;
 
 .signature{
 margin-top:50px;
+font-size:10px;
+text-align:center;
 }
 
-/* BUTTONS */
+/* =========================
+   DEVELOPER SECTION
+========================= */
+
+.developer{
+text-align:center;
+margin-top:20px;
+padding-top:8px;
+border-top:1px dashed #aaa;
+font-size:10px;
+color:#722323;
+letter-spacing:0.5px;
+}
+
+.developer a{
+text-decoration:none;
+color:#722323;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 
 .controls{
 text-align:center;
@@ -206,23 +284,19 @@ border-radius:4px;
 margin:5px;
 }
 
-
-
 button:hover{
 background:#1f4e8c;
 }
 
-/* MOBILE RESPONSIVE */
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 
 @media screen and (max-width:600px){
 
 #bill{
 padding:10px;
 border:1px solid #333;
-}
-
-.phone{
-font-size:13px;
 }
 
 th,td{
@@ -240,161 +314,15 @@ letter-spacing:20px;
 }
 
 .address{
-text-align:left;
 font-size:10px;
-font-weight:bold;
-color:#1f4e8c;
-}
-
-.phone{
-font-size:10px;
-color:#333;
-}
-
-}
-
-#billNoDiv{
-text-align:left;
-font-size:10px;
-line-height:1.2;
-min-width:70px;
-}
-
-
-
-.billInfo{
-border:none;
-margin-left:auto;
-font-size:11px;
-}
-
-.billInfo td{
-border:none !important;
-padding:2px 5px;
-}
-
-
-.billInfo td:nth-child(2){
-width:10px;
-text-align:center;
-}
-
-.billInfo td:nth-child(1){
-text-align:left;
-}
-
-.developer{
-text-align:center;
-margin-top:20px;
-padding-top:8px;
-border-top:1px dashed #aaa;
-font-size:12px;
-color:#722323;
-letter-spacing:0.5px;
-}
-
-/* ensure pdf captures full height */
-#bill{
-padding-bottom:30px;
-}
-
-
-/* GLOBAL FONT SIZE */
-
-body{
-font-family:Arial, sans-serif;
-font-size:10px;
-background:#e9eef5;
-}
-
-/* TABLE HEADERS */
-
-th{
-font-size:12px;
-background:#1f4e8c;
-color:#fff;
-}
-
-/* LABEL HEADERS */
-
-.label{
-font-size:12px;
-font-weight:bold;
-background:#eef3ff;
-}
-
-/* BILL HEADER */
-
-.address{
-font-size:12px;
-font-weight:bold;
-color:#eef3ff
 }
 
 .phone{
 font-size:10px;
 }
 
-/* BILL INFO */
-
-.billInfo td{
-font-size:10px;
 }
 
-/* INPUT TEXT */
-
-input{
-font-size:10px;
-}
-
-/* TOTAL */
-
-.total{
-font-size:12px;
-font-weight:bold;
-color:#d00000;
-}
-
-/* NOTES */
-
-.notes{
-margin-top:15px;
-padding:10px;
-border:1px solid var(--border);
-background:#fafcff;
-font-size:11px;
-line-height:1.4;
-border-radius:3px;
-}
-
-.notes b{
-font-size:12px;
-}
-
-/* SIGNATURE */
-
-.signature{
-font-size:10px;
-}
-
-/* DEVELOPER */
-
-.developer{
-font-size:10px;
-}
-
-.developer a{
-text-decoration:none;
-color:#722323;;
-}
-
-
- :root{
---main:#1f4e8c;
---light:#eef3ff;
---border:#cfd6e4;
---text:#333;
-}
 </style>
 
 </head>
