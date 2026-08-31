@@ -658,7 +658,29 @@ orientation:'portrait'
 
 };
 
-html2pdf().set(opt).from(element).save().then(function(){
+html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf){
+
+/* manually add clickable link areas, since html2canvas
+   rasterizes the content into an image and enableLinks
+   does not reliably reconstruct link positions */
+
+const billRect = element.getBoundingClientRect();
+const margin = opt.margin;
+
+element.querySelectorAll("a[href]").forEach(function(a){
+
+const r = a.getBoundingClientRect();
+
+const x = (r.left - billRect.left) + margin;
+const y = (r.top - billRect.top) + margin;
+const w = r.width;
+const h = r.height;
+
+pdf.link(x, y, w, h, { url: a.getAttribute("href") });
+
+});
+
+}).save().then(function(){
 controls.style.display="block";
 });
 
