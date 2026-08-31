@@ -167,6 +167,28 @@ input:focus{
 border-bottom:1px solid #333;
 }
 
+input.invalid{
+border-bottom:1px solid #d00000 !important;
+background:#fff0f0;
+}
+
+.fieldError{
+display:block;
+color:#d00000;
+font-size:9px;
+text-align:left;
+margin-top:2px;
+line-height:1.2;
+}
+
+.errorMsg{
+color:#d00000;
+font-size:11px;
+text-align:center;
+margin-top:8px;
+display:none;
+}
+
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button{
 -webkit-appearance:none;
@@ -424,6 +446,7 @@ style="text-decoration:none; background:#25D366; color:white; padding:3px 8px; b
 <td class="label" style="width: 25%;">House No</td>
 <td>
 <input type="text" style="text-align:left;" id="house">
+<span class="fieldError" id="houseErr"></span>
 </td>
 </tr>
 
@@ -431,6 +454,7 @@ style="text-decoration:none; background:#25D366; color:white; padding:3px 8px; b
 <td class="label">Building Name</td>
 <td>
 <input type="text" style="text-align:left;" id="name">
+<span class="fieldError" id="nameErr"></span>
 </td>
 </tr>
 
@@ -469,9 +493,11 @@ style="text-decoration:none; background:#25D366; color:white; padding:3px 8px; b
 
 <td>
 <input type="number" id="prev" oninput="allowOnlyNumbers(this)">
+<span class="fieldError" id="prevErr"></span>
 </td>
 <td>
 <input type="number" id="current" oninput="allowOnlyNumbers(this)">
+<span class="fieldError" id="currentErr"></span>
 </td>
 
 <td class="center" style="font-size: 10px;" id="usage"></td>
@@ -489,6 +515,7 @@ style="text-decoration:none; background:#25D366; color:white; padding:3px 8px; b
 <td class="label" style="font-size:10px;width: 25%;">Rent Amount</td>
 <td>
 <input type="number" id="rent" oninput="allowOnlyNumbers(this)">
+<span class="fieldError" id="rentErr"></span>
 </td>
 </tr>
 
@@ -578,6 +605,7 @@ style="text-decoration:none; background:#25D366; color:white; padding:6px 12px; 
 </div>
 
 <div class="controls">
+<div class="errorMsg" id="errorMsg"></div>
 <button onclick="downloadPDF()">Download PDF</button>
 </div>
 
@@ -614,13 +642,92 @@ dd+"-"+mm+"-"+yyyy;
 
 document.querySelectorAll("input").forEach(el=>{
 el.addEventListener("input",calculate);
+el.addEventListener("input",()=>{
+el.classList.remove("invalid");
+const errSpan = document.getElementById(el.id+"Err");
+if(errSpan) errSpan.innerText = "";
+});
 });
 
 
 
 /* PDF */
 
+function clearInvalid(){
+document.querySelectorAll("input.invalid").forEach(el=>el.classList.remove("invalid"));
+document.querySelectorAll(".fieldError").forEach(el=>el.innerText = "");
+document.getElementById("errorMsg").style.display = "none";
+}
+
+function markInvalid(id, msg){
+document.getElementById(id).classList.add("invalid");
+document.getElementById(id+"Err").innerText = msg;
+}
+
+function showError(msg){
+const box = document.getElementById("errorMsg");
+box.innerText = msg;
+box.style.display = "block";
+}
+
+function validateBill(){
+
+clearInvalid();
+
+let hasError = false;
+
+const house = document.getElementById("house").value.trim();
+const name = document.getElementById("name").value.trim();
+const prev = document.getElementById("prev").value;
+const current = document.getElementById("current").value;
+const rent = document.getElementById("rent").value;
+
+if(!house){
+markInvalid("house", "House No is required.");
+hasError = true;
+}
+
+if(!name){
+markInvalid("name", "Building Name is required.");
+hasError = true;
+}
+
+if(prev === ""){
+markInvalid("prev", "Previous Reading is required.");
+hasError = true;
+}else if(parseFloat(prev) < 0){
+markInvalid("prev", "Previous Reading cannot be negative.");
+hasError = true;
+}
+
+if(current === ""){
+markInvalid("current", "Current Reading is required.");
+hasError = true;
+}else if(parseFloat(current) < 0){
+markInvalid("current", "Current Reading cannot be negative.");
+hasError = true;
+}else if(prev !== "" && parseFloat(current) <= parseFloat(prev)){
+markInvalid("current", "Current Reading must be greater than Previous Reading.");
+hasError = true;
+}
+
+if(rent !== "" && parseFloat(rent) < 0){
+markInvalid("rent", "Rent Amount cannot be negative.");
+hasError = true;
+}
+
+if(hasError){
+showError("Please fix the highlighted fields above.");
+return false;
+}
+
+return true;
+
+}
+
 function downloadPDF(){
+
+if(!validateBill()) return;
 
 let controls = document.querySelector(".controls");
 controls.style.display = "none";
